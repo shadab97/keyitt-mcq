@@ -7,5 +7,5 @@ export interface Iquestion {
     difficulty: "easy" | "medium" | "hard";
     question: string;
     correct_answer: string;
-    incorrect_answers?: (string)[] | null;
+    incorrect_answers: Array<string>;
 }

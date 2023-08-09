@@ -1,4 +1,6 @@
-const data = [
+import { Iquestion } from "@/components/Quiz/interface"
+
+const data: Iquestion[] = [
     {
         "category": "Entertainment%3A%20Video%20Games",
         "type": "multiple",

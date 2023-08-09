@@ -6,8 +6,8 @@ import BorderCard from '../bordered-card'
 import RatingForQuestion from '../StarRating'
 
 const Quiz = () => {
-    const { option, question, result, message, progress, currentQuestion, currentQuestionIndex, markedAnswerIndex, handleMarkAnswer, handleSetCurrentQuestionIndex } = useQuiz()
-    if (progress === 100) {
+    const { option, question, isFinished, handleFinished, result, message, progress, currentQuestion, currentQuestionIndex, markedAnswerIndex, handleMarkAnswer, handleSetCurrentQuestionIndex } = useQuiz()
+    if (isFinished) {
         return (
             <div className='flex flex-col justify-center items-center mt-8'>
                 <BorderCard>
@@ -17,6 +17,7 @@ const Quiz = () => {
                 <button
                     onClick={() => {
                         handleSetCurrentQuestionIndex(0)
+                        handleFinished(false)
                     }}
                     className="bg-blue-500 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Play Again
@@ -70,13 +71,22 @@ const Quiz = () => {
                             Reset
                         </button>
                         {
-                            message !== '' && <button
-                                disabled={currentQuestionIndex < (question.length - 1) ? false : true}
-                                onClick={() => {
-                                    handleSetCurrentQuestionIndex(currentQuestionIndex + 1)
-                                }} className="bg-blue-500 disabled:cursor-not-allowed hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Next Question
-                            </button>
+                            currentQuestionIndex + 1 === question.length ?
+                                <button
+                                    onClick={() => {
+                                        handleFinished(true)
+                                    }}
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    Proceed to result
+                                </button>
+                                :
+                                message !== '' && <button
+                                    disabled={currentQuestionIndex < (question.length - 1) ? false : true}
+                                    onClick={() => {
+                                        handleSetCurrentQuestionIndex(currentQuestionIndex + 1)
+                                    }} className="bg-blue-500 disabled:cursor-not-allowed hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    Next Question
+                                </button>
                         }
                     </div>
                 </div>

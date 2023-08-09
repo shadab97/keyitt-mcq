@@ -9,12 +9,16 @@ const useQuiz = () => {
     const [question, setQuestion] = useState<Iquestion[]>(data);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [markedAnswerIndex, setMarkedAnswerIndex] = useState(-1)
+    const [isFinished, setIsFinished] = useState(false)
     const currentQuestion = question[currentQuestionIndex] as Iquestion;
     const progress = Math.ceil(((currentQuestionIndex === 0 ? 0 : currentQuestionIndex + 1) / question?.length) * 100) as number;
     const [message, setMessage] = useState('')
     const handleSetCurrentQuestionIndex = (index: number) => {
         setMessage('')
         setCurrentQuestionIndex(index)
+    }
+    const handleFinished = (val: boolean) => {
+        setIsFinished(val)
     }
     const [result, setResult] = useState(0)
 
@@ -29,12 +33,14 @@ const useQuiz = () => {
     }
 
     const option = useMemo(() => {
-        return shuffleArray([currentQuestion.correct_answer, ...currentQuestion.incorrect_answers])
+        return shuffleArray([currentQuestion?.correct_answer, ...currentQuestion?.incorrect_answers])
     }, [currentQuestion])
 
     return {
         result: Math.ceil((result / question.length) * 100),
         option,
+        isFinished,
+        handleFinished,
         message,
         question,
         progress,
