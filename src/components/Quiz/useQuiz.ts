@@ -25,10 +25,10 @@ const useQuiz = () => {
     const handleMarkAnswer = (ans: string, each: number) => {
         setMarkedAnswerIndex(each)
         if (decodeURIComponent(currentQuestion.correct_answer) === ans) {
-            setMessage('Correct Answer')
+            setMessage('Correct Answer 🚀')
             setResult((res) => res + 1)
         } else {
-            setMessage('Incorrect Answer! try Again')
+            setMessage('Incorrect Answer! 😭')
         }
     }
 
